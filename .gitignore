@@ -102,3 +102,13 @@ dist
 
 # TernJS port file
 .tern-port
+
+# expo and react native
+.expo/*
+# macOS
+.DS_Store
+ios
+android
+coverage
+junit.xml
+*.md
