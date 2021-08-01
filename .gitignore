@@ -112,3 +112,6 @@ android
 coverage
 junit.xml
 *.md
+
+#vscode
+.vscode/
