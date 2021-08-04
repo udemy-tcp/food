@@ -3,10 +3,11 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import SearchBar from '../components/SearchBar'
 import useResults from '../hooks/useResults'
 import ResultsList from '../components/ResultsList'
+import LottieView from 'lottie-react-native'
 
 const SearchScreen = () => {
   const [term, setTerm] = useState('')
-  const [searchApi, results, errorMessage] = useResults()
+  const [searchApi, results, errorMessage, loading] = useResults()
 
   const filterResultsByPrice = (price) => {
     // price === '$' || '$$' || '$$$'
@@ -22,25 +23,37 @@ const SearchScreen = () => {
         onTermChange={setTerm}
         onTermSubmit={() => searchApi(term)}
       />
-      {errorMessage ? <Text>{errorMessage}</Text> : null}
-      <ScrollView>
-        <ResultsList
-          results={filterResultsByPrice('$')}
-          title="Cost Effective"
-        />
-        <ResultsList results={filterResultsByPrice('$$')} title="Bit Pricier" />
-        <ResultsList
-          results={filterResultsByPrice('$$$')}
-          title="Big Spender"
-        />
-      </ScrollView>
+      {
+        loading ?
+          <LottieView 
+            source={require('../../assets/lottie/67226-food-app-interaction.json')} 
+            autoPlay={true}
+            loop
+            speed={2.5}
+          />
+        :
+          <View style={styles.containerStyle}>
+            {errorMessage ? <Text>{errorMessage}</Text> : null}
+            <ScrollView>
+              <ResultsList
+                results={filterResultsByPrice('$')}
+                title="Cost Effective"
+              />
+              <ResultsList results={filterResultsByPrice('$$')} title="Bit Pricier" />
+              <ResultsList
+                results={filterResultsByPrice('$$$')}
+                title="Big Spender"
+              />
+            </ScrollView>
+          </View>
+      }
     </>
   )
 }
 
 const styles = StyleSheet.create({
   containerStyle: {
-    backgroundColor: 'white',
+    backgroundColor: '#F0EEEE',
     flex: 1
   }
 })
