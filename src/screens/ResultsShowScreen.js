@@ -1,29 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import {
-  View,
   Text,
   StyleSheet,
-  FlatList,
-  Image,
-  ScrollView
+  ScrollView,
+  SafeAreaView,
+  StatusBar,
+  Alert
 } from 'react-native'
 import yelp from '../api/yelp'
-import LottieView from 'lottie-react-native'
+import CarouselCards from '../components/carousel/CarouselCards'
 
 const ResultsShowScreen = ({ navigation }) => {
   const [result, setResult] = useState(null)
-  const [loading, setLoading] = useState(true)
   const id = navigation.getParam('id')
 
   const getResult = async (id) => {
     try {
-      setLoading(true)
       const response = await yelp.get(`/${id}`)
       setResult(response.data)
-      setLoading(false)
     } catch (err) {
-      alert(err)
-      setLoading(false)
+      Alert.alert('Error', err)
     }
   }
 
@@ -36,41 +32,27 @@ const ResultsShowScreen = ({ navigation }) => {
   }
 
   return (
-    <>
-      {loading ? (
-        <LottieView
-          source={require('../../assets/lottie/67226-food-app-interaction.json')}
-          autoPlay={true}
-          loop
-          speed={2.5}
-        />
-      ) : (
-        <View style={styles.container}>
-          <ScrollView>
-            <Text>{result.name}</Text>
-            <FlatList
-              horizontal
-              data={result.photos}
-              keyExtractor={(photo) => photo}
-              renderItem={({ item }) => {
-                return <Image style={styles.image} source={{ uri: item }} />
-              }}
-            />
-          </ScrollView>
-        </View>
-      )}
-    </>
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <Text style={styles.title}>{result.name}</Text>
+        <CarouselCards photos={result.photos} />
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    paddingTop: StatusBar.currentHeight,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  image: {
-    height: 200,
-    width: 300,
-    borderRadius: 4
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    alignSelf: 'center'
   }
 })
 
