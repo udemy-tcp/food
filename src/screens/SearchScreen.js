@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import SearchBar from '../components/SearchBar'
 import useResults from '../hooks/useResults'
 import ResultsList from '../components/ResultsList'
 import LottieView from 'lottie-react-native'
+import AutoUpdateService from '../services/AutoUpdateService'
 
 const SearchScreen = () => {
   const [term, setTerm] = useState('')
@@ -16,6 +17,10 @@ const SearchScreen = () => {
     })
   }
 
+  useEffect(() => {
+    AutoUpdateService.autoUpdate()
+  }, [])
+
   return (
     <>
       <SearchBar
@@ -23,30 +28,32 @@ const SearchScreen = () => {
         onTermChange={setTerm}
         onTermSubmit={() => searchApi(term)}
       />
-      {
-        loading ?
-          <LottieView 
-            source={require('../../assets/lottie/67226-food-app-interaction.json')} 
-            autoPlay={true}
-            loop
-            speed={2.5}
-          />
-        :
-          <View style={styles.containerStyle}>
-            {errorMessage ? <Text>{errorMessage}</Text> : null}
-            <ScrollView>
-              <ResultsList
-                results={filterResultsByPrice('$')}
-                title="Cost Effective"
-              />
-              <ResultsList results={filterResultsByPrice('$$')} title="Bit Pricier" />
-              <ResultsList
-                results={filterResultsByPrice('$$$')}
-                title="Big Spender"
-              />
-            </ScrollView>
-          </View>
-      }
+      {loading ? (
+        <LottieView
+          source={require('../../assets/lottie/67226-food-app-interaction.json')}
+          autoPlay={true}
+          loop
+          speed={2.5}
+        />
+      ) : (
+        <View style={styles.containerStyle}>
+          {errorMessage ? <Text>{errorMessage}</Text> : null}
+          <ScrollView>
+            <ResultsList
+              results={filterResultsByPrice('$')}
+              title="Cost Effective"
+            />
+            <ResultsList
+              results={filterResultsByPrice('$$')}
+              title="Bit Pricier"
+            />
+            <ResultsList
+              results={filterResultsByPrice('$$$')}
+              title="Big Spender"
+            />
+          </ScrollView>
+        </View>
+      )}
     </>
   )
 }
