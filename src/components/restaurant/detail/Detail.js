@@ -27,7 +27,7 @@ const Detail = ({ result, reviews }) => {
           return Linking.openURL(phoneNumber)
         }
       })
-      .catch((err) => console.log(err))
+      .catch((err) => Alert.alert('Error', err))
   }
 
   const getCategories = (categories) => {

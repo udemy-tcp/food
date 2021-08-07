@@ -4,10 +4,6 @@ import { Rating } from 'react-native-ratings'
 import { FontAwesome } from '@expo/vector-icons'
 
 const ReviewesDetail = ({ result }) => {
-  console.log(
-    '🚀 ~ file: ReviewsDetail.js ~ line 7 ~ ReviewesDetail ~ result',
-    result
-  )
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: 'row' }}>
