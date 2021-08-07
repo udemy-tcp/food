@@ -34,7 +34,9 @@ const ResultsShowScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <Text style={styles.title}>{result.name}</Text>
+        <Text adjustsFontSizeToFit style={styles.title}>
+          {result.name}
+        </Text>
         <CarouselCards photos={result.photos} />
       </ScrollView>
     </SafeAreaView>
@@ -44,7 +46,6 @@ const ResultsShowScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: StatusBar.currentHeight,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center'
@@ -52,7 +53,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    marginVertical: 8,
+    marginHorizontal: 16
   }
 })
 

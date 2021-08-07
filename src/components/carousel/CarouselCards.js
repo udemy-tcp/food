@@ -10,7 +10,7 @@ const CarouselCards = ({ photos }) => {
   return (
     <View>
       <Carousel
-        layout="tinder"
+        layout="stack"
         layoutCardOffset={9}
         ref={isCarousel}
         data={photos}

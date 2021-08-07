@@ -107,8 +107,8 @@ dist
 .expo/*
 # macOS
 .DS_Store
-ios
-android
+ios/*
+android/*
 coverage
 junit.xml
 *.md

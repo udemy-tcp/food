@@ -19,7 +19,7 @@ export default () => {
       setResults(response.data.businesses)
       setLoading(false)
     } catch (err) {
-      setErrorMessage(`${err}`)
+      setErrorMessage(err)
       setLoading(false)
     }
   }
