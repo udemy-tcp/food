@@ -43,7 +43,6 @@ const Detail = ({ result, reviews }) => {
           </Text>
           <View style={styles.ratingContainer}>
             <Rating
-              style={styles.rating}
               type="custom"
               ratingColor="#D32F2F"
               readonly={true}
@@ -84,7 +83,8 @@ const styles = StyleSheet.create({
   sectionContainer: {
     backgroundColor: '#FFFFFF',
     marginVertical: 4,
-    paddingHorizontal: 8
+    paddingHorizontal: 8,
+    paddingVertical: 8
   },
   title: {
     fontSize: 18,
